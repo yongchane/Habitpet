@@ -36,5 +36,9 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-#md
-    *.md
+# HabitPet Project Documentation Files
+# These files are project planning documents and should not be in the public repository
+HabitPet_*.md
+
+# Keep README.md visible
+!README.md
