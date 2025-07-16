@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types';
 import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../../constants';
 import { Button, LoadingSpinner } from '../../components/common';
-import { useAppActions } from '../../store';
+import { useSetUser } from '../../store';
 
 type AuthScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>;
 
@@ -14,7 +14,7 @@ interface Props {
 
 const AuthScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const { setUser } = useAppActions();
+  const setUser = useSetUser();
 
   const handleGoogleSignIn = async () => {
     try {

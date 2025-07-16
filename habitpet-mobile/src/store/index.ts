@@ -187,8 +187,8 @@ export const useActiveTab = () => useAppStore(state => state.ui.activeTab);
 export const useModals = () => useAppStore(state => state.ui.modals);
 export const useNotifications = () => useAppStore(state => state.ui.notifications);
 
-// Actions
-export const useAppActions = () => useAppStore(state => ({
+// Actions - 캐시된 셀렉터를 사용하여 무한 루프 방지
+const actionsSelector = (state: AppStore) => ({
   setUser: state.setUser,
   setPet: state.setPet,
   setHabits: state.setHabits,
@@ -203,7 +203,23 @@ export const useAppActions = () => useAppStore(state => ({
   hideModal: state.hideModal,
   showNotification: state.showNotification,
   hideNotification: state.hideNotification,
-}));
+});
+
+export const useAppActions = () => useAppStore(actionsSelector);
+
+// 개별 액션 훅들 (더 나은 성능)
+export const useSetUser = () => useAppStore(state => state.setUser);
+export const useSetPet = () => useAppStore(state => state.setPet);
+export const useSetHabits = () => useAppStore(state => state.setHabits);
+export const useCompleteHabit = () => useAppStore(state => state.completeHabit);
+export const useAddHabit = () => useAppStore(state => state.addHabit);
+export const useUpdateHabit = () => useAppStore(state => state.updateHabit);
+export const useDeleteHabit = () => useAppStore(state => state.deleteHabit);
+export const useSetLoading = () => useAppStore(state => state.setLoading);
+export const useShowModal = () => useAppStore(state => state.showModal);
+export const useHideModal = () => useAppStore(state => state.hideModal);
+export const useShowNotification = () => useAppStore(state => state.showNotification);
+export const useHideNotification = () => useAppStore(state => state.hideNotification);
 
 // Subscribe to state changes for side effects
 useAppStore.subscribe(
