@@ -35,3 +35,9 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+#md
+HabitPet_Feature_Implementation_Table.md
+HabitPet_Functional_Specification.md
+HabitPet_Pixel_Art_Design_Guide.md
+HabitPet_Project_Plan.md
