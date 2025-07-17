@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
 
 import AppNavigator from './src/navigation/AppNavigator';
-import { COLORS } from './src/constants';
 import { LoadingSpinner } from './src/components/common';
+
 
 export default function App() {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -36,10 +36,13 @@ export default function App() {
   if (isLoading) {
     return (
       <SafeAreaProvider>
-        <View style={styles.loadingContainer}>
-          <Text style={styles.logo}>🐾</Text>
-          <Text style={styles.appName}>HabitPet</Text>
-          <LoadingSpinner size="large" color={COLORS.PRIMARY} />
+        <View 
+          className="flex-1 bg-background justify-center items-center"
+          style={{ paddingTop: Constants.statusBarHeight }}
+        >
+          <Text className="text-[80px] mb-4">🐾</Text>
+          <Text className="text-2xl font-bold text-primary mb-10">HabitPet</Text>
+          <LoadingSpinner size="large" color="#4ECDC4" />
         </View>
         <StatusBar style="auto" />
       </SafeAreaProvider>
@@ -49,9 +52,16 @@ export default function App() {
   if (error) {
     return (
       <SafeAreaProvider>
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorTitle}>오류가 발생했습니다</Text>
-          <Text style={styles.errorMessage}>{error}</Text>
+        <View 
+          className="flex-1 bg-background justify-center items-center px-8"
+          style={{ paddingTop: Constants.statusBarHeight }}
+        >
+          <Text className="text-xl font-semibold text-red-500 mb-4 text-center">
+            오류가 발생했습니다
+          </Text>
+          <Text className="text-base text-text-secondary text-center leading-6">
+            {error}
+          </Text>
         </View>
         <StatusBar style="auto" />
       </SafeAreaProvider>
@@ -66,48 +76,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Constants.statusBarHeight,
-  },
-  
-  logo: {
-    fontSize: 80,
-    marginBottom: 16,
-  },
-  
-  appName: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: COLORS.PRIMARY,
-    marginBottom: 40,
-  },
-  
-  errorContainer: {
-    flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 32,
-    paddingTop: Constants.statusBarHeight,
-  },
-  
-  errorTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: COLORS.STATUS.error,
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  
-  errorMessage: {
-    fontSize: 16,
-    color: COLORS.TEXT_SECONDARY,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-});

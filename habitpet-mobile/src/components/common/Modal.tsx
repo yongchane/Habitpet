@@ -1,19 +1,21 @@
 import React from 'react';
-import { Modal as RNModal, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { COLORS, SPACING, BORDER_RADIUS } from '../../constants';
+import { Modal as RNModal, View, TouchableWithoutFeedback } from 'react-native';
 
 interface ModalProps {
   visible: boolean;
   onClose: () => void;
   children: React.ReactNode;
   closeOnBackdropPress?: boolean;
+  className?: string;
 }
+
 
 const Modal: React.FC<ModalProps> = ({
   visible,
   onClose,
   children,
   closeOnBackdropPress = true,
+  className = '',
 }) => {
   const handleBackdropPress = () => {
     if (closeOnBackdropPress) {
@@ -29,9 +31,9 @@ const Modal: React.FC<ModalProps> = ({
       onRequestClose={onClose}
     >
       <TouchableWithoutFeedback onPress={handleBackdropPress}>
-        <View style={styles.backdrop}>
+        <View className="flex-1 bg-black/40 justify-center items-center">
           <TouchableWithoutFeedback>
-            <View style={styles.container}>
+            <View className={`bg-card-bg rounded-lg p-lg mx-lg max-w-[90%] max-h-[80%] shadow-lg shadow-black/25 ${className}`}>
               {children}
             </View>
           </TouchableWithoutFeedback>
@@ -40,28 +42,5 @@ const Modal: React.FC<ModalProps> = ({
     </RNModal>
   );
 };
-
-const styles = StyleSheet.create({
-  backdrop: {
-    flex: 1,
-    backgroundColor: COLORS.MODAL_BACKGROUND,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  
-  container: {
-    backgroundColor: COLORS.CARD_BACKGROUND,
-    borderRadius: BORDER_RADIUS.LG,
-    padding: SPACING.LG,
-    margin: SPACING.LG,
-    maxWidth: '90%',
-    maxHeight: '80%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 16,
-    elevation: 8,
-  },
-});
 
 export default Modal;

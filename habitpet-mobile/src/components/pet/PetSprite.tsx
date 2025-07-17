@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image } from "react-native";
 import { Pet, PetAnimationState } from "../../types";
 import { PET_CONSTANTS, ANIMATION_CONSTANTS } from "../../constants";
 
@@ -7,14 +7,15 @@ interface PetSpriteProps {
   pet: Pet;
   onTouch?: () => void;
   interactive?: boolean;
-  style?: any;
+  className?: string;
 }
+
 
 export const PetSprite: React.FC<PetSpriteProps> = ({
   pet,
   onTouch,
   interactive = true,
-  style,
+  className = '',
 }) => {
   const [animationState, setAnimationState] = useState<PetAnimationState>({
     current: "idle",
@@ -107,23 +108,19 @@ export const PetSprite: React.FC<PetSpriteProps> = ({
 
   return (
     <TouchableOpacity
-      style={[styles.container, style]}
+      className={`justify-center items-center ${className}`}
       onPress={handleTouch}
       disabled={!interactive}
       activeOpacity={0.8}
     >
       <View
-        style={[
-          styles.spriteContainer,
-          { width: spriteSize, height: spriteSize },
-        ]}
+        className="relative justify-center items-center"
+        style={{ width: spriteSize, height: spriteSize }}
       >
         {/* 실제 구현시에는 Image 컴포넌트로 스프라이트 이미지 로드 */}
         <View
-          style={[
-            styles.placeholder,
-            { width: spriteSize, height: spriteSize },
-          ]}
+          className="bg-gray-100 rounded justify-center items-center"
+          style={{ width: spriteSize, height: spriteSize }}
         >
           {/* 임시 펫 표시 */}
           {/* <Image
@@ -135,64 +132,26 @@ export const PetSprite: React.FC<PetSpriteProps> = ({
 
         {/* 애니메이션 효과 */}
         {animationState.current === "happy" && (
-          <View style={styles.happyEffect}>{/* 하트 파티클 효과 */}</View>
+          <View className="absolute -top-2.5 -left-2.5 -right-2.5 -bottom-2.5">
+            {/* 하트 파티클 효과 */}
+          </View>
         )}
 
         {animationState.current === "eating" && (
-          <View style={styles.eatingEffect}>{/* 먹이 효과 */}</View>
+          <View className="absolute -top-1.5 -right-1.5">
+            {/* 먹이 효과 */}
+          </View>
         )}
 
         {animationState.current === "evolving" && (
-          <View style={styles.evolutionEffect}>{/* 진화 빛 효과 */}</View>
+          <View className="absolute -top-5 -left-5 -right-5 -bottom-5">
+            {/* 진화 빛 효과 */}
+          </View>
         )}
       </View>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  spriteContainer: {
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  placeholder: {
-    backgroundColor: "#f0f0f0",
-    borderRadius: 4,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  happyEffect: {
-    position: "absolute",
-    top: -10,
-    left: -10,
-    right: -10,
-    bottom: -10,
-    // 하트 파티클 효과 스타일
-  },
-
-  eatingEffect: {
-    position: "absolute",
-    top: -5,
-    right: -5,
-    // 먹이 효과 스타일
-  },
-
-  evolutionEffect: {
-    position: "absolute",
-    top: -20,
-    left: -20,
-    right: -20,
-    bottom: -20,
-    // 진화 빛 효과 스타일
-  },
-});
 
 export default PetSprite;

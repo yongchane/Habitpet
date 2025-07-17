@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types';
-import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../../constants';
 import { Button } from '../../components/common';
 
 type OnboardingScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Onboarding'>;
@@ -12,6 +11,7 @@ interface Props {
 }
 
 const { width } = Dimensions.get('window');
+
 
 const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -57,15 +57,15 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-background">
       {/* 상단 건너뛰기 버튼 */}
-      <View style={styles.header}>
+      <View className="flex-row justify-end items-center px-md pt-lg pb-sm">
         <Button
           title="건너뛰기"
           onPress={handleSkip}
           variant="ghost"
           size="small"
-          style={styles.skipButton}
+          className="px-sm"
         />
       </View>
 
@@ -76,30 +76,31 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
         showsHorizontalScrollIndicator={false}
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        style={styles.slideContainer}
+        className="flex-1"
       >
         {slides.map((slide, index) => (
-          <View key={index} style={styles.slide}>
-            <View style={styles.slideContent}>
-              <Text style={styles.slideImage}>{slide.image}</Text>
-              <Text style={styles.slideTitle}>{slide.title}</Text>
-              <Text style={styles.slideDescription}>{slide.description}</Text>
+          <View key={index} className="flex-1 justify-center items-center px-lg" style={{ width }}>
+            <View className="items-center max-w-[300px]">
+              <Text className="text-[100px] mb-10">{slide.image}</Text>
+              <Text className="text-xl font-bold text-text-primary text-center mb-md leading-8">{slide.title}</Text>
+              <Text className="text-base text-text-secondary text-center leading-6">{slide.description}</Text>
             </View>
           </View>
         ))}
       </ScrollView>
 
       {/* 하단 인디케이터 및 버튼 */}
-      <View style={styles.footer}>
+      <View className="px-lg pb-xl pt-md items-center">
         {/* 페이지 인디케이터 */}
-        <View style={styles.indicators}>
+        <View className="flex-row mb-lg">
           {slides.map((_, index) => (
             <View
               key={index}
-              style={[
-                styles.indicator,
-                index === currentSlide && styles.activeIndicator,
-              ]}
+              className={`w-2 h-2 rounded mx-1 ${
+                index === currentSlide 
+                  ? 'bg-primary w-6' 
+                  : 'bg-text-disabled'
+              }`}
             />
           ))}
         </View>
@@ -109,99 +110,12 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
           title={currentSlide === slides.length - 1 ? '시작하기' : '다음'}
           onPress={handleNext}
           variant="primary"
-          style={styles.nextButton}
+          className="w-full mt-sm"
         />
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
-  },
-  
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingHorizontal: SPACING.MD,
-    paddingTop: SPACING.LG,
-    paddingBottom: SPACING.SM,
-  },
-  
-  skipButton: {
-    paddingHorizontal: SPACING.SM,
-  },
-  
-  slideContainer: {
-    flex: 1,
-  },
-  
-  slide: {
-    width,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: SPACING.LG,
-  },
-  
-  slideContent: {
-    alignItems: 'center',
-    maxWidth: 300,
-  },
-  
-  slideImage: {
-    fontSize: 100,
-    marginBottom: SPACING.XL,
-  },
-  
-  slideTitle: {
-    fontSize: FONT_SIZES.TITLE,
-    fontWeight: '700',
-    color: COLORS.TEXT_PRIMARY,
-    textAlign: 'center',
-    marginBottom: SPACING.MD,
-    lineHeight: 32,
-  },
-  
-  slideDescription: {
-    fontSize: FONT_SIZES.BODY,
-    color: COLORS.TEXT_SECONDARY,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-  
-  footer: {
-    paddingHorizontal: SPACING.LG,
-    paddingBottom: SPACING.XL,
-    paddingTop: SPACING.MD,
-    alignItems: 'center',
-  },
-  
-  indicators: {
-    flexDirection: 'row',
-    marginBottom: SPACING.LG,
-  },
-  
-  indicator: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: COLORS.TEXT_DISABLED,
-    marginHorizontal: 4,
-  },
-  
-  activeIndicator: {
-    backgroundColor: COLORS.PRIMARY,
-    width: 24,
-  },
-  
-  nextButton: {
-    width: '100%',
-    marginTop: SPACING.SM,
-  },
-});
 
 export default OnboardingScreen;

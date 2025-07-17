@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types';
-import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../../constants';
 import { Button, LoadingSpinner } from '../../components/common';
 import { useSetUser } from '../../store';
 
@@ -11,6 +10,7 @@ type AuthScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>;
 interface Props {
   navigation: AuthScreenNavigationProp;
 }
+
 
 const AuthScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -69,54 +69,56 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <LoadingSpinner size="large" color={COLORS.PRIMARY} />
-        <Text style={styles.loadingText}>로그인 중...</Text>
+      <View className="flex-1 bg-background justify-center items-center">
+        <LoadingSpinner size="large" color="#4ECDC4" />
+        <Text className="text-base text-text-secondary mt-4">로그인 중...</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
+    <View className="flex-1 bg-background">
+      <View className="flex-1 justify-center px-6">
         {/* 로고 및 환영 메시지 */}
-        <View style={styles.logoContainer}>
-          <Text style={styles.logo}>🐾</Text>
-          <Text style={styles.appName}>HabitPet</Text>
-          <Text style={styles.welcomeText}>
+        <View className="items-center mb-12">
+          <Text className="text-[80px] mb-2">🐾</Text>
+          <Text className="text-3xl font-bold text-primary mb-4">HabitPet</Text>
+          <Text className="text-lg text-text-secondary text-center">
             반가워요!{'\n'}
             지금 시작해보세요
           </Text>
         </View>
 
         {/* 로그인 버튼들 */}
-        <View style={styles.buttonContainer}>
+        <View className="gap-4">
           <Button
             title="🔵 구글로 시작하기"
             onPress={handleGoogleSignIn}
             variant="primary"
-            style={styles.socialButton}
+            size="large"
           />
           
           <Button
             title="⚫ 애플로 시작하기"
             onPress={handleAppleSignIn}
             variant="secondary"
-            style={styles.socialButton}
+            size="large"
           />
           
           <TouchableOpacity
-            style={styles.emailButton}
+            className="py-4 px-6 bg-transparent border border-gray-300 rounded-md mt-4"
             onPress={handleEmailSignIn}
           >
-            <Text style={styles.emailButtonText}>이메일로 시작하기</Text>
+            <Text className="text-base font-medium text-text-primary text-center">
+              이메일로 시작하기
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* 하단 정보 */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
+      <View className="px-6 pb-8">
+        <Text className="text-xs text-text-secondary text-center leading-5">
           가입하면 서비스 이용약관 및 개인정보처리방침에 동의하는 것으로 간주됩니다.
         </Text>
       </View>
@@ -124,90 +126,5 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
-  },
-  
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: SPACING.LG,
-  },
-  
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: SPACING.XL * 2,
-  },
-  
-  logo: {
-    fontSize: 80,
-    marginBottom: SPACING.SM,
-  },
-  
-  appName: {
-    fontSize: FONT_SIZES.TITLE * 1.2,
-    fontWeight: '700',
-    color: COLORS.PRIMARY,
-    marginBottom: SPACING.MD,
-  },
-  
-  welcomeText: {
-    fontSize: FONT_SIZES.BODY,
-    color: COLORS.TEXT_SECONDARY,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-  
-  buttonContainer: {
-    width: '100%',
-    gap: SPACING.MD,
-  },
-  
-  socialButton: {
-    width: '100%',
-    height: 56,
-  },
-  
-  emailButton: {
-    alignItems: 'center',
-    paddingVertical: SPACING.SM,
-    marginTop: SPACING.SM,
-  },
-  
-  emailButtonText: {
-    fontSize: FONT_SIZES.BODY,
-    color: COLORS.TEXT_SECONDARY,
-    textDecorationLine: 'underline',
-  },
-  
-  footer: {
-    paddingHorizontal: SPACING.LG,
-    paddingBottom: SPACING.XL,
-    alignItems: 'center',
-  },
-  
-  footerText: {
-    fontSize: FONT_SIZES.CAPTION,
-    color: COLORS.TEXT_SECONDARY,
-    textAlign: 'center',
-    lineHeight: 18,
-  },
-  
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.BACKGROUND,
-  },
-  
-  loadingText: {
-    fontSize: FONT_SIZES.BODY,
-    color: COLORS.TEXT_SECONDARY,
-    marginTop: SPACING.MD,
-  },
-});
 
 export default AuthScreen;

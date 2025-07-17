@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 
-interface ButtonProps {
+interface TailwindButtonProps {
   title: string;
   onPress: () => void;
   variant?: 'primary' | 'secondary' | 'ghost';
@@ -11,7 +11,8 @@ interface ButtonProps {
   className?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+
+export const TailwindButton: React.FC<TailwindButtonProps> = ({
   title,
   onPress,
   variant = 'primary',
@@ -21,10 +22,10 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
 }) => {
   const getButtonClasses = () => {
-    const baseClasses = 'justify-center items-center rounded-md min-h-[48px]';
+    const baseClasses = 'justify-center items-center rounded-md';
     
     const variantClasses = {
-      primary: 'bg-primary shadow-lg shadow-primary/30',
+      primary: 'bg-primary shadow-lg',
       secondary: 'bg-transparent border-2 border-primary',
       ghost: 'bg-transparent',
     };
@@ -44,9 +45,9 @@ export const Button: React.FC<ButtonProps> = ({
     const baseClasses = 'font-semibold text-center';
     
     const variantClasses = {
-      primary: 'text-white',
-      secondary: 'text-primary',
-      ghost: 'text-text-secondary',
+      primary: 'text-white text-base',
+      secondary: 'text-primary text-base',
+      ghost: 'text-text-secondary text-sm',
     };
     
     const sizeClasses = {
@@ -76,5 +77,4 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-
-export default Button;
+export default TailwindButton;

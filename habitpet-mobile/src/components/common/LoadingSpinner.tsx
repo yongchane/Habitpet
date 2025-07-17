@@ -1,31 +1,23 @@
 import React from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { COLORS } from '../../constants';
+import { View, ActivityIndicator } from 'react-native';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'large';
   color?: string;
-  style?: any;
+  className?: string;
 }
+
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'large',
-  color = COLORS.PRIMARY,
-  style,
+  color = '#4ECDC4',
+  className = '',
 }) => {
   return (
-    <View style={[styles.container, style]}>
+    <View className={`flex-1 justify-center items-center ${className}`}>
       <ActivityIndicator size={size} color={color} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default LoadingSpinner;

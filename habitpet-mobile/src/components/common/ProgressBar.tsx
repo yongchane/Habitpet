@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../../constants';
+import { View, Text } from 'react-native';
 
 interface ProgressBarProps {
   progress: number; // 0-1 범위
@@ -9,64 +8,44 @@ interface ProgressBarProps {
   backgroundColor?: string;
   showLabel?: boolean;
   label?: string;
-  style?: any;
+  className?: string;
 }
+
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
   progress,
   height = 8,
-  color = COLORS.PRIMARY,
-  backgroundColor = COLORS.TEXT_DISABLED,
+  color = '#4ECDC4',
+  backgroundColor = '#BDBDBD',
   showLabel = false,
   label,
-  style,
+  className = '',
 }) => {
   const clampedProgress = Math.max(0, Math.min(1, progress));
   const percentage = Math.round(clampedProgress * 100);
 
   return (
-    <View style={[styles.container, style]}>
+    <View className={`w-full ${className}`}>
       {showLabel && (
-        <Text style={styles.label}>
+        <Text className="text-sm text-text-secondary mb-xs text-right">
           {label || `${percentage}%`}
         </Text>
       )}
-      <View style={[styles.track, { height, backgroundColor }]}>
+      <View 
+        className="rounded-sm overflow-hidden"
+        style={{ height, backgroundColor }}
+      >
         <View
-          style={[
-            styles.fill,
-            {
-              width: `${percentage}%`,
-              height,
-              backgroundColor: color,
-            },
-          ]}
+          className="rounded-sm"
+          style={{
+            width: `${percentage}%`,
+            height,
+            backgroundColor: color,
+          }}
         />
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-  
-  label: {
-    fontSize: FONT_SIZES.CAPTION,
-    color: COLORS.TEXT_SECONDARY,
-    marginBottom: SPACING.XS,
-    textAlign: 'right',
-  },
-  
-  track: {
-    borderRadius: BORDER_RADIUS.SM,
-    overflow: 'hidden',
-  },
-  
-  fill: {
-    borderRadius: BORDER_RADIUS.SM,
-  },
-});
 
 export default ProgressBar;

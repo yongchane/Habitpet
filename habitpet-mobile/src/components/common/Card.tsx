@@ -1,59 +1,36 @@
 import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
-import { COLORS, SPACING, BORDER_RADIUS } from '../../constants';
+import { View } from 'react-native';
 
 interface CardProps {
   children: React.ReactNode;
   variant?: 'default' | 'habit' | 'pet' | 'stat';
-  style?: ViewStyle;
+  className?: string;
 }
+
 
 export const Card: React.FC<CardProps> = ({
   children,
   variant = 'default',
-  style,
+  className = '',
 }) => {
-  const cardStyle = [
-    styles.card,
-    styles[variant],
-    style,
-  ];
+  const getCardClasses = () => {
+    const baseClasses = 'bg-card-bg rounded-lg p-md shadow-md shadow-black/8';
+    
+    const variantClasses = {
+      default: '',
+      habit: 'border-l-4 border-accent',
+      pet: 'bg-blue-50',
+      stat: 'bg-yellow-50',
+    };
+    
+    return `${baseClasses} ${variantClasses[variant]} ${className}`;
+  };
 
   return (
-    <View style={cardStyle}>
+    <View className={getCardClasses()}>
       {children}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: COLORS.CARD_BACKGROUND,
-    borderRadius: BORDER_RADIUS.LG,
-    padding: SPACING.MD,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  
-  default: {
-    // 기본 스타일
-  },
-  
-  habit: {
-    borderLeftWidth: 4,
-    borderLeftColor: COLORS.ACCENT,
-  },
-  
-  pet: {
-    backgroundColor: COLORS.PET_HOME_BACKGROUND,
-  },
-  
-  stat: {
-    backgroundColor: COLORS.FEEDING_SECTION_BACKGROUND,
-  },
-});
 
 export default Card;

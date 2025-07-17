@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { RootStackParamList, MainTabParamList } from '../types';
 import { useUser } from '../store';
-import { COLORS } from '../constants';
 
 // Screens
 import SplashScreen from '../screens/auth/SplashScreen';
@@ -26,6 +25,7 @@ import SettingsScreen from '../screens/settings/SettingsScreen';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
+
 // 탭 네비게이션 컴포넌트
 const MainTabNavigator = () => {
   return (
@@ -33,15 +33,15 @@ const MainTabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: COLORS.CARD_BACKGROUND,
+          backgroundColor: '#F8F9FA',
           borderTopWidth: 1,
-          borderTopColor: COLORS.TEXT_DISABLED,
+          borderTopColor: '#E0E0E0',
           height: 83,
           paddingBottom: 20,
           paddingTop: 10,
         },
-        tabBarActiveTintColor: COLORS.PRIMARY,
-        tabBarInactiveTintColor: COLORS.TEXT_SECONDARY,
+        tabBarActiveTintColor: '#4ECDC4',
+        tabBarInactiveTintColor: '#8E8E93',
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '500',
@@ -132,9 +132,9 @@ const AppNavigator = () => {
                 headerShown: true,
                 headerTitle: '습관 상세',
                 headerStyle: {
-                  backgroundColor: COLORS.CARD_BACKGROUND,
+                  backgroundColor: '#F8F9FA',
                 },
-                headerTintColor: COLORS.TEXT_PRIMARY,
+                headerTintColor: '#1A1A1A',
                 headerTitleStyle: {
                   fontSize: 18,
                   fontWeight: '600',
@@ -148,9 +148,9 @@ const AppNavigator = () => {
                 headerShown: true,
                 headerTitle: '새 습관 추가',
                 headerStyle: {
-                  backgroundColor: COLORS.CARD_BACKGROUND,
+                  backgroundColor: '#F8F9FA',
                 },
-                headerTintColor: COLORS.TEXT_PRIMARY,
+                headerTintColor: '#1A1A1A',
                 headerTitleStyle: {
                   fontSize: 18,
                   fontWeight: '600',
@@ -164,9 +164,9 @@ const AppNavigator = () => {
                 headerShown: true,
                 headerTitle: '습관 편집',
                 headerStyle: {
-                  backgroundColor: COLORS.CARD_BACKGROUND,
+                  backgroundColor: '#F8F9FA',
                 },
-                headerTintColor: COLORS.TEXT_PRIMARY,
+                headerTintColor: '#1A1A1A',
                 headerTitleStyle: {
                   fontSize: 18,
                   fontWeight: '600',
@@ -180,9 +180,9 @@ const AppNavigator = () => {
                 headerShown: true,
                 headerTitle: '펫 상세',
                 headerStyle: {
-                  backgroundColor: COLORS.CARD_BACKGROUND,
+                  backgroundColor: '#F8F9FA',
                 },
-                headerTintColor: COLORS.TEXT_PRIMARY,
+                headerTintColor: '#1A1A1A',
                 headerTitleStyle: {
                   fontSize: 18,
                   fontWeight: '600',
@@ -196,9 +196,9 @@ const AppNavigator = () => {
                 headerShown: true,
                 headerTitle: '펫 도감',
                 headerStyle: {
-                  backgroundColor: COLORS.CARD_BACKGROUND,
+                  backgroundColor: '#F8F9FA',
                 },
-                headerTintColor: COLORS.TEXT_PRIMARY,
+                headerTintColor: '#1A1A1A',
                 headerTitleStyle: {
                   fontSize: 18,
                   fontWeight: '600',
@@ -212,9 +212,9 @@ const AppNavigator = () => {
                 headerShown: true,
                 headerTitle: '설정',
                 headerStyle: {
-                  backgroundColor: COLORS.CARD_BACKGROUND,
+                  backgroundColor: '#F8F9FA',
                 },
-                headerTintColor: COLORS.TEXT_PRIMARY,
+                headerTintColor: '#1A1A1A',
                 headerTitleStyle: {
                   fontSize: 18,
                   fontWeight: '600',

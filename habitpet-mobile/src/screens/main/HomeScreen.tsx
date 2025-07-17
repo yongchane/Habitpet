@@ -3,12 +3,10 @@ import {
   View,
   Text,
   ScrollView,
-  StyleSheet,
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
 import { Pet, HabitProgress, UserScore } from '../../types';
-import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../../constants';
 import { PetSprite, PetStatusBar } from '../../components/pet';
 import { HabitCard } from '../../components/habit';
 import { Card, Button } from '../../components/common';
@@ -94,6 +92,7 @@ const mockHabits: HabitProgress[] = [
   },
 ];
 
+
 const HomeScreen: React.FC = () => {
   const [pet, setPet] = useState<Pet>(mockPet);
   const [todayHabits, setTodayHabits] = useState<HabitProgress[]>(mockHabits);
@@ -151,76 +150,74 @@ const HomeScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <SafeAreaView className="flex-1 bg-background">
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {/* 헤더 */}
-        <View style={styles.header}>
-          <Text style={styles.dateText}>☀️ {getCurrentDate()}</Text>
-          <View style={styles.headerRight}>
-            <Text style={styles.scoreText}>💰 {todayScore.toLocaleString()}P</Text>
-            <TouchableOpacity style={styles.settingsButton}>
-              <Text style={styles.settingsIcon}>⚙️</Text>
+        <View className="flex-row justify-between items-center px-md py-sm">
+          <Text className="text-base text-text-primary font-medium">☀️ {getCurrentDate()}</Text>
+          <View className="flex-row items-center gap-sm">
+            <Text className="text-base text-text-primary font-semibold">💰 {todayScore.toLocaleString()}P</Text>
+            <TouchableOpacity className="p-xs">
+              <Text className="text-xl">⚙️</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         {/* 펫 홈 섹션 */}
-        <Card variant="pet" style={styles.petHomeCard}>
-          <Text style={styles.sectionTitle}>🏠 내 펫의 집</Text>
+        <Card variant="pet" className="mx-md mb-sm">
+          <Text className="text-lg font-semibold text-text-primary mb-md text-center">🏠 내 펫의 집</Text>
           
-          <View style={styles.petHomeContainer}>
-            <View style={styles.petRoom}>
+          <View className="gap-md">
+            <View className="h-[200px] bg-pet-home-background rounded-md relative justify-center items-center">
               {/* 배경 요소들 */}
-              <Text style={styles.roomDecoration}>🪟</Text>
-              <Text style={styles.roomDecoration}>☁️</Text>
-              <Text style={styles.roomDecoration}>🌱</Text>
-              <Text style={styles.roomDecoration}>🛏️</Text>
-              <Text style={styles.roomDecoration}>📚</Text>
-              <Text style={styles.roomDecoration}>🪑</Text>
-              <Text style={styles.roomDecoration}>🧸</Text>
-              <Text style={styles.roomDecoration}>🥛</Text>
-              <Text style={styles.roomDecoration}>🎵</Text>
-              <Text style={styles.roomDecoration}>💡</Text>
+              <Text className="absolute text-base">🪟</Text>
+              <Text className="absolute text-base">☁️</Text>
+              <Text className="absolute text-base">🌱</Text>
+              <Text className="absolute text-base">🛏️</Text>
+              <Text className="absolute text-base">📚</Text>
+              <Text className="absolute text-base">🪑</Text>
+              <Text className="absolute text-base">🧸</Text>
+              <Text className="absolute text-base">🥛</Text>
+              <Text className="absolute text-base">🎵</Text>
+              <Text className="absolute text-base">💡</Text>
               
               {/* 펫 스프라이트 */}
-              <View style={styles.petSpriteContainer}>
+              <View className="absolute justify-center items-center">
                 <PetSprite
                   pet={pet}
                   onTouch={handlePetTouch}
-                  style={styles.petSprite}
+                  className=""
                 />
               </View>
             </View>
             
-            <PetStatusBar pet={pet} style={styles.petStatusBar} />
+            <PetStatusBar pet={pet} className="" />
           </View>
         </Card>
 
         {/* 먹이주기 섹션 */}
-        <Card variant="stat" style={styles.feedingCard}>
-          <Text style={styles.sectionTitle}>🍯 먹이주기</Text>
+        <Card variant="stat" className="mx-md mt-sm">
+          <Text className="text-lg font-semibold text-text-primary mb-md text-center">🍯 먹이주기</Text>
           
-          <View style={styles.habitsContainer}>
+          <View className="gap-xs mb-md">
             {todayHabits.map(habitProgress => (
               <HabitCard
                 key={habitProgress.habit.id}
                 habitProgress={habitProgress}
                 onComplete={handleCompleteHabit}
-                style={styles.habitCard}
+                className=""
               />
             ))}
           </View>
           
-          <View style={styles.progressContainer}>
-            <Text style={styles.progressText}>
+          <View className="mb-md">
+            <Text className="text-sm text-text-secondary mb-xs text-center">
               오늘 진행률: {Math.round(progressPercentage)}% ({completedHabits}/{totalHabits})
             </Text>
-            <View style={styles.progressBar}>
+            <View className="h-2 bg-text-disabled rounded overflow-hidden">
               <View
-                style={[
-                  styles.progressFill,
-                  { width: `${progressPercentage}%` }
-                ]}
+                className="h-full bg-primary rounded"
+                style={{ width: `${progressPercentage}%` }}
               />
             </View>
           </View>
@@ -229,7 +226,7 @@ const HomeScreen: React.FC = () => {
             title="+ 습관 추가하기"
             onPress={() => console.log('습관 추가')}
             variant="ghost"
-            style={styles.addHabitButton}
+            className="self-center"
           />
         </Card>
       </ScrollView>
@@ -237,136 +234,5 @@ const HomeScreen: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
-  },
-  
-  scrollView: {
-    flex: 1,
-  },
-  
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: SPACING.MD,
-    paddingVertical: SPACING.SM,
-  },
-  
-  dateText: {
-    fontSize: FONT_SIZES.BODY,
-    color: COLORS.TEXT_PRIMARY,
-    fontWeight: '500',
-  },
-  
-  headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.SM,
-  },
-  
-  scoreText: {
-    fontSize: FONT_SIZES.BODY,
-    color: COLORS.TEXT_PRIMARY,
-    fontWeight: '600',
-  },
-  
-  settingsButton: {
-    padding: SPACING.XS,
-  },
-  
-  settingsIcon: {
-    fontSize: 20,
-  },
-  
-  petHomeCard: {
-    margin: SPACING.MD,
-    marginBottom: SPACING.SM,
-  },
-  
-  feedingCard: {
-    margin: SPACING.MD,
-    marginTop: SPACING.SM,
-  },
-  
-  sectionTitle: {
-    fontSize: FONT_SIZES.SUBTITLE,
-    fontWeight: '600',
-    color: COLORS.TEXT_PRIMARY,
-    marginBottom: SPACING.MD,
-    textAlign: 'center',
-  },
-  
-  petHomeContainer: {
-    gap: SPACING.MD,
-  },
-  
-  petRoom: {
-    height: 200,
-    backgroundColor: COLORS.PET_HOME_BACKGROUND,
-    borderRadius: BORDER_RADIUS.MD,
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  
-  roomDecoration: {
-    position: 'absolute',
-    fontSize: 16,
-  },
-  
-  petSpriteContainer: {
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  
-  petSprite: {
-    // 펫 스프라이트 스타일
-  },
-  
-  petStatusBar: {
-    // 펫 상태 바 스타일
-  },
-  
-  habitsContainer: {
-    gap: SPACING.XS,
-    marginBottom: SPACING.MD,
-  },
-  
-  habitCard: {
-    // 습관 카드 스타일
-  },
-  
-  progressContainer: {
-    marginBottom: SPACING.MD,
-  },
-  
-  progressText: {
-    fontSize: FONT_SIZES.CAPTION,
-    color: COLORS.TEXT_SECONDARY,
-    marginBottom: SPACING.XS,
-    textAlign: 'center',
-  },
-  
-  progressBar: {
-    height: 8,
-    backgroundColor: COLORS.TEXT_DISABLED,
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  
-  progressFill: {
-    height: '100%',
-    backgroundColor: COLORS.PRIMARY,
-    borderRadius: 4,
-  },
-  
-  addHabitButton: {
-    alignSelf: 'center',
-  },
-});
 
 export default HomeScreen;

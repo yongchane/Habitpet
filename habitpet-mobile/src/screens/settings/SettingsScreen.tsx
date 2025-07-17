@@ -1,32 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { COLORS } from '../../constants';
+import { View, Text } from 'react-native';
+
 
 const SettingsScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>설정</Text>
-      <Text style={styles.subtitle}>앱 설정을 여기에서 설정하세요.</Text>
+    <View className="flex-1 p-5 bg-background">
+      <Text className="text-2xl font-bold text-text-primary mb-2.5">설정</Text>
+      <Text className="text-base text-text-secondary">앱 설정을 여기에서 설정하세요.</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: COLORS.BACKGROUND,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.TEXT_PRIMARY,
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: COLORS.TEXT_SECONDARY,
-  },
-});
 
 export default SettingsScreen;

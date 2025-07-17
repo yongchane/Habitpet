@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
-import { COLORS, FONT_SIZES, SPACING } from "../../constants";
 import { LoadingSpinner } from "../../components/common";
 
 type SplashScreenNavigationProp = StackNavigationProp<
@@ -13,6 +12,7 @@ type SplashScreenNavigationProp = StackNavigationProp<
 interface Props {
   navigation: SplashScreenNavigationProp;
 }
+
 
 const SplashScreen: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
@@ -36,78 +36,29 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
+    <View className="flex-1 bg-background">
+      <View className="flex-1 justify-center items-center px-lg">
         {/* 로고 */}
-        <View style={styles.logoContainer}>
-          <Text style={styles.logo}>🐾</Text>
-          <Text style={styles.appName}>HabitPet</Text>
+        <View className="items-center mb-xl">
+          <Text className="text-[80px] mb-sm">🐾</Text>
+          <Text className="text-3xl font-bold text-primary tracking-wide">HabitPet</Text>
         </View>
 
         {/* 슬로건 */}
-        <Text style={styles.slogan}>습관과 함께 성장하는 나만의 펫</Text>
+        <Text className="text-base text-text-secondary text-center mb-20 leading-6">
+          습관과 함께 성장하는 나만의 펫
+        </Text>
       </View>
 
       {/* 하단 정보 */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>작은 습관이 특별한 펫을 만들어요</Text>
+      <View className="pb-xl items-center">
+        <Text className="text-sm text-text-secondary text-center">
+          작은 습관이 특별한 펫을 만들어요
+        </Text>
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.BACKGROUND,
-  },
-
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: SPACING.LG,
-  },
-
-  logoContainer: {
-    alignItems: "center",
-    marginBottom: SPACING.XL,
-  },
-
-  logo: {
-    fontSize: 80,
-    marginBottom: SPACING.SM,
-  },
-
-  appName: {
-    fontSize: FONT_SIZES.TITLE * 1.5,
-    fontWeight: "700",
-    color: COLORS.PRIMARY,
-    letterSpacing: 1,
-  },
-
-  slogan: {
-    fontSize: FONT_SIZES.BODY,
-    color: COLORS.TEXT_SECONDARY,
-    textAlign: "center",
-    marginBottom: SPACING.XL * 2,
-    lineHeight: 24,
-  },
-
-  loadingContainer: {
-    marginTop: SPACING.XL,
-  },
-
-  footer: {
-    paddingBottom: SPACING.XL,
-    alignItems: "center",
-  },
-
-  footerText: {
-    fontSize: FONT_SIZES.CAPTION,
-    color: COLORS.TEXT_SECONDARY,
-    textAlign: "center",
-  },
-});
 
 export default SplashScreen;
