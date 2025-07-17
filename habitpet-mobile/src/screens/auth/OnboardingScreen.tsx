@@ -1,53 +1,56 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, Dimensions } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../types';
-import { Button } from '../../components/common';
+import React, { useState } from "react";
+import { View, Text, ScrollView, Dimensions } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../types";
+import { Button } from "../../components/common";
 
-type OnboardingScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Onboarding'>;
+type OnboardingScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Onboarding"
+>;
 
 interface Props {
   navigation: OnboardingScreenNavigationProp;
 }
 
-const { width } = Dimensions.get('window');
-
+const { width } = Dimensions.get("window");
 
 const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      title: '나만의 픽셀 펫과 함께하는\n습관 여행',
-      description: '작은 습관이 특별한 펫을 만들어요',
-      image: '🐱',
+      title: "나만의 픽셀 펫과 함께하는\n습관 여행",
+      description: "작은 습관이 특별한 펫을 만들어요",
+      image: "🐱",
     },
     {
-      title: '습관을 먹이로 바꿔보세요',
-      description: '운동, 공부, 요리... 모든 습관이\n펫의 성장 에너지가 됩니다',
-      image: '🍎',
+      title: "습관을 먹이로 바꿔보세요",
+      description: "운동, 공부, 요리... 모든 습관이\n펫의 성장 에너지가 됩니다",
+      image: "🍎",
     },
     {
-      title: '펫이 나의 습관을 따라 성장해요',
-      description: '운동을 많이 하면 머슬 펫으로,\n공부를 하면 학자 펫으로!',
-      image: '🌱',
+      title: "펫이 나의 습관을 따라 성장해요",
+      description: "운동을 많이 하면 머슬 펫으로,\n공부를 하면 학자 펫으로!",
+      image: "🌱",
     },
     {
-      title: '지금 시작해보세요',
-      description: '건강하고 행복한 습관을 만들어\n나만의 특별한 펫을 키워보세요',
-      image: '🎉',
+      title: "지금 시작해보세요",
+      description:
+        "건강하고 행복한 습관을 만들어\n나만의 특별한 펫을 키워보세요",
+      image: "🎉",
     },
   ];
 
   const handleSkip = () => {
-    navigation.replace('Auth');
+    navigation.replace("Auth");
   };
 
   const handleNext = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
     } else {
-      navigation.replace('Auth');
+      navigation.replace("Auth");
     }
   };
 
@@ -59,7 +62,7 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View className="flex-1 bg-background">
       {/* 상단 건너뛰기 버튼 */}
-      <View className="flex-row justify-end items-center px-md pt-lg pb-sm">
+      <View className="flex-row justify-end items-center px-md pt-[50px] pb-sm">
         <Button
           title="건너뛰기"
           onPress={handleSkip}
@@ -79,11 +82,19 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
         className="flex-1"
       >
         {slides.map((slide, index) => (
-          <View key={index} className="flex-1 justify-center items-center px-lg" style={{ width }}>
+          <View
+            key={index}
+            className="flex-1 justify-center items-center px-lg"
+            style={{ width }}
+          >
             <View className="items-center max-w-[300px]">
               <Text className="text-[100px] mb-10">{slide.image}</Text>
-              <Text className="text-xl font-bold text-text-primary text-center mb-md leading-8">{slide.title}</Text>
-              <Text className="text-base text-text-secondary text-center leading-6">{slide.description}</Text>
+              <Text className="text-xl font-bold text-text-primary text-center mb-md leading-8">
+                {slide.title}
+              </Text>
+              <Text className="text-base text-text-secondary text-center leading-6">
+                {slide.description}
+              </Text>
             </View>
           </View>
         ))}
@@ -97,9 +108,7 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
             <View
               key={index}
               className={`w-2 h-2 rounded mx-1 ${
-                index === currentSlide 
-                  ? 'bg-primary w-6' 
-                  : 'bg-text-disabled'
+                index === currentSlide ? "bg-primary w-6" : "bg-text-disabled"
               }`}
             />
           ))}
@@ -107,7 +116,7 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
 
         {/* 다음 버튼 */}
         <Button
-          title={currentSlide === slides.length - 1 ? '시작하기' : '다음'}
+          title={currentSlide === slides.length - 1 ? "시작하기" : "다음"}
           onPress={handleNext}
           variant="primary"
           className="w-full mt-sm"
@@ -116,6 +125,5 @@ const OnboardingScreen: React.FC<Props> = ({ navigation }) => {
     </View>
   );
 };
-
 
 export default OnboardingScreen;

@@ -1,20 +1,19 @@
-import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React from "react";
+import { View, ActivityIndicator } from "react-native";
 
 interface LoadingSpinnerProps {
-  size?: 'small' | 'large';
+  size?: "small" | "large";
   color?: string;
   className?: string;
 }
 
-
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
-  size = 'large',
-  color = '#4ECDC4',
-  className = '',
+  size = "large",
+  color = "#4ECDC4",
+  className = "",
 }) => {
   return (
-    <View className={`flex-1 justify-center items-center ${className}`}>
+    <View className={` justify-center items-center ${className}`}>
       <ActivityIndicator size={size} color={color} />
     </View>
   );

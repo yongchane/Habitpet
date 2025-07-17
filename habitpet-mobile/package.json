@@ -1,7 +1,7 @@
 {
   "name": "habitpet-mobile",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@expo/metro-runtime": "^5.0.4",
     "@types/react": "~19.0.10",
     "@types/react-native": "^0.73.0",
     "tailwindcss": "^3.4.17",
